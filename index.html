@@ -6,22 +6,117 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Static Template</title>
     <style>
+        picture { 
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            width: 100px;
+        }
+
+        picture.is-small {
+            width: 50px;
+        }
+
+        picture.is-large {
+            width: 150px;
+        }
+
+        picture.is-extraLarge {
+            width: 250px;
+        }
+
+        i {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            box-shadow: 0 0 15px #999;
+            border-radius: 30%;
+            height: 80px;
+            width: 150px; 
+        }
+
         img {
             box-shadow: 0 0 15px #999;
             border-radius: 30%;
-            width: 80px;
+            width: 100%; 
+        }
+
+        img.disabled {
+            opacity: .3;
         }
     </style>
+     <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   </head>
   <body>
     <h1>WOMEN IN TECH</h1>
-    <picture>
-        <img src="https://randomuser.me/api/portraits/women/18.jpg" alt="">
-        Sue
-    </picture>
-    <picture>
-        <img src="https://randomuser.me/api/portraits/women/7.jpg" alt="">
-        Kim
-    </picture>
+    <div id="app"></div>
+    <script type="text/babel">
+        const $app = document.getElementById('app')
+        const useState = React.useState;
+
+        //declaro les constants dels components que vull que es pintin//
+        //en aquest cas les fotos//
+        const Avatar = ({id, name = "Ms. X", size}) => {
+            const [enabled, setEnabled] = useState(true)
+            /*equival a esciure això
+            const enabled = state[0]
+            const setEnabled = state[1]*/
+
+            /*renderizado opcional per si no es passa algun parametre tipo id, size...*/
+            /*if (!id) return "Avatar incorrecto";*/
+
+
+            const src = `https://randomuser.me/api/portraits/women/${id}.jpg`;
+            
+            //retorno les fotos + paramatres declarats en el ReactDOM.render//
+            //declaro events per la img (tots els onXXX estan a la documentació de React)
+            
+            let pictureClassName = ''
+            if (size === "small") {
+                pictureClassName = 'is-small'
+            } else if (size === "large") {
+                pictureClassName = 'is-large'
+            } else if (size === "extraLarge") {
+                pictureClassName = 'is-extraLarge'
+            }
+
+
+            const imgclassName = enabled ? "" : "disabled";
+
+            return (
+                /*Si tenemos id renderizame la imagen, si no tenemos id = alternativa*/
+                <picture className={pictureClassName}>
+                    {
+                        id ? (
+                            <img 
+                        onClick={() => {
+                            setEnabled(!enabled);
+                        }} 
+                        className={imgclassName} 
+                        src={src} 
+                            />
+                        ) :  (
+                            <i>Sin imagen</i>
+                        )}
+                    <strong>{enabled ? name : "Avatar desactivado"}</strong>
+                </picture>
+            );
+        };
+
+        //declaro els parametres que vull renderitzar
+        ReactDOM.render(
+            <div>
+                <Avatar/>
+                <Avatar id={17} name="Sue" size="small" />
+                <Avatar id={7} name="Lak" size="large" />
+                <Avatar id={2} name="Kim" size="extraLarge"/>
+            </div>,
+            $app
+        );
+    </script>
     </body>
+
+    
 </html>
