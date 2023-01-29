@@ -7,44 +7,46 @@
     <title>Static Template</title>
     <style>
         picture { 
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            width: 100px;
-        }
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 100px;
+}
 
-        picture.is-small {
-            width: 50px;
-        }
+i {
+    border-radius: 25px;
+    border: 2px solid #73AD21;
+    padding: 20px;
+    width: 200px;
+    height: 150px; 
+}
 
-        picture.is-large {
-            width: 150px;
-        }
 
-        picture.is-extraLarge {
-            width: 250px;
-        }
+picture.is-small {
+    width: 50px;
+}
 
-        i {
-            display: flex;
-            flex-direction: column;
-            text-align: center;
-            box-shadow: 0 0 15px #999;
-            border-radius: 30%;
-            height: 80px;
-            width: 150px; 
-        }
+picture.is-large {
+    width: 150px;
+}
 
-        img {
-            box-shadow: 0 0 15px #999;
-            border-radius: 30%;
-            width: 100%; 
-        }
+picture.is-extraLarge {
+    width: 250px;
+}
 
-        img.disabled {
-            opacity: .3;
-        }
+img {
+    box-shadow: 0 0 15px #999;
+    border-radius: 30%;
+    width: 100%; 
+}
+
+img.disabled {
+    opacity: .3;
+}
+
+
     </style>
+    <link rel="stylesheet" type="text/css" href="styles.css"/>
      <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
      <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
      <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
@@ -98,14 +100,17 @@
                         src={src} 
                             />
                         ) :  (
+                            <style>
                             <i>Sin imagen</i>
+                            </style>
+                            
                         )}
                     <strong>{enabled ? name : "Avatar desactivado"}</strong>
                 </picture>
             );
         };
 
-        //declaro els parametres que vull renderitzar
+        //declaro los parametros que quiero renderizar
         ReactDOM.render(
             <div>
                 <Avatar/>
